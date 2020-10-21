@@ -1,8 +1,4 @@
-from datetime import datetime
-from xml.etree.ElementTree import Element
-from unraid import get_stats
 import xml.etree.ElementTree as ElementTree
-from xml.dom import minidom
 import re
 
 def generate_feed(data, server):
@@ -22,13 +18,12 @@ def generate_feed(data, server):
     dockers = ElementTree.SubElement(main, 'dockers')
     for docker in server['docker']['details'].get('containers'):
         container = server['docker']['details']['containers'].get(docker)
-        docker_element = ElementTree.SubElement(dockers, 'container', attrib={'id': docker})
-        status = ElementTree.SubElement(docker_element, 'status')
-        status.text = container.get('status')
-        name = ElementTree.SubElement(docker_element, 'name')
-        name.text = container.get('name')
-        update = ElementTree.SubElement(docker_element, 'upToDate')
-        update.text = container.get('uptoDate')
+        docker_element = ElementTree.SubElement(dockers, 'container')
+        for item in container:
+            if item == 'imageUrl':
+                continue
+            element = ElementTree.SubElement(docker_element, item)
+            element.text = container[item]
 
     vms = ElementTree.SubElement(main, 'vms')
     for vm_id in server['vm']['details']:
