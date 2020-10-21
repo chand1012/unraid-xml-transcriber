@@ -20,7 +20,7 @@ async def logs(server: str = ''):
     """
     Gets the servers as an XML RSS feed.
     """
-    if server is '':
+    if server == '':
         server = os.environ.get('API_HOST')
 
     logs = get_stats(os.environ.get('API_HOST'))
