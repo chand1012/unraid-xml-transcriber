@@ -11,7 +11,7 @@
   <Project/>
   <Overview/>
   <Category/>
-  <WebUI>http://[IP]:[PORT:5555]/servers</WebUI>
+  <WebUI></WebUI>
   <TemplateURL/>
   <Icon>https://i.imgur.com/ChA3BgJ.png</Icon>
   <ExtraParams/>
@@ -43,5 +43,5 @@
   </Environment>
   <Labels/>
   <Config Name="Container Port" Target="5555" Default="5555" Mode="tcp" Description="Container Port: 5555" Type="Port" Display="always" Required="true" Mask="false"></Config>
-  <Config Name="API Host" Target="API_HOST" Default="[IP]" Mode="" Description="Container Variable: API_HOST" Type="Variable" Display="always" Required="true" Mask="false"></Config>
+  <Config Name="API Host" Target="API_HOST" Default="" Mode="" Description="Container Variable: API_HOST" Type="Variable" Display="always" Required="true" Mask="false"></Config>
 </Container>
