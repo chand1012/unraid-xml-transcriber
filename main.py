@@ -16,7 +16,7 @@ async def index():
     return RedirectResponse(url="/servers")
 
 @app.get("/servers")
-async def logs(server: str = ''):
+async def logs(server: str = '', padding: int = 5):
     """
     Gets the servers as an XML RSS feed.
     """
@@ -24,6 +24,6 @@ async def logs(server: str = ''):
         server = os.environ.get('API_HOST')
 
     logs = get_stats(os.environ.get('API_HOST'))
-    feed = generate_feed(logs, server=server)
+    feed = generate_feed(logs, server=server, padding=padding)
 
     return Response(content=feed, media_type='application/xml')
