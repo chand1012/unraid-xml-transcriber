@@ -27,3 +27,8 @@ async def logs(server: str = '', padding: int = 5):
     feed = generate_feed(logs, server=server, padding=padding)
 
     return Response(content=feed, media_type='application/xml')
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000)
