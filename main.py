@@ -16,7 +16,7 @@ async def index():
     return RedirectResponse(url="/servers")
 
 @app.get("/servers")
-async def logs(server: str = '', padding: int = 5):
+async def logs(server: str = '', padding: int = 5, hw: bool = False):
     """
     Gets the servers as an XML RSS feed.
     """
@@ -24,11 +24,14 @@ async def logs(server: str = '', padding: int = 5):
         server = os.environ.get('API_HOST')
 
     logs = get_api_stats(os.environ.get('API_HOST'))
-    feed = generate_feed(logs, server=server, padding=padding)
+    hardware = None
+    if hw:
+        hardware = get_hw_stats()
+    feed = generate_feed(logs, server=server, padding=padding, hw=hardware)
 
     return Response(content=feed, media_type='application/xml')
 
-@app.get('/hwinfo/json')
+@app.get('/hwinfo')
 async def hwinfo_json():
     return get_hw_stats()
 

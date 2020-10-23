@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ElementTree
 import re
 
-def generate_feed(data, server, padding=5):
+def generate_feed(data, server, padding=5, hw=None):
     servers = data.get('servers')
     server = servers.get(server)
     main = ElementTree.Element('server')
@@ -58,7 +58,12 @@ def generate_feed(data, server, padding=5):
             vm_element = ElementTree.SubElement(vms, 'vm')
             for item in placeholders:
                 ElementTree.SubElement(vm_element, item)
-
+    if hw:
+        usage = ElementTree.SubElement(main, 'usage')
+        for item in hw:
+            element = ElementTree.SubElement(usage, item)
+            element.text = hw[item]
+            
     output = ElementTree.tostring(main)
     prefix = '<?xml version="1.0" encoding="UTF-8"?>'
     return prefix+output.decode('utf-8')
