@@ -21,7 +21,7 @@ async def logs(server: str = '', padding: int = 5, hw: bool = False):
     Gets the servers as an XML RSS feed.
     """
     if server == '':
-        server = os.environ.get('API_HOST')
+        server = os.environ.get('LOCAL_IP') or os.environ.get('API_HOST')
 
     logs = get_api_stats(os.environ.get('API_HOST'))
     hardware = None
