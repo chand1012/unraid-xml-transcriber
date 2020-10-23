@@ -64,7 +64,7 @@ def generate_feed(data, server, padding=5):
     return prefix+output.decode('utf-8')
 
 if __name__ == '__main__':
-    from unraid import get_stats
-    data = get_stats('192.168.0.126')
+    from unraid import get_api_stats
+    data = get_api_stats('192.168.0.126')
     xml = generate_feed(data, '192.168.0.126')
     print(xml)

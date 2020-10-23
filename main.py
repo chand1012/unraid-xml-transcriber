@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from starlette.responses import RedirectResponse, Response
 
 from feed import generate_feed
-from unraid import get_stats
+from unraid import get_api_stats, get_hw_stats
 
 app = FastAPI()
 
@@ -23,11 +23,14 @@ async def logs(server: str = '', padding: int = 5):
     if server == '':
         server = os.environ.get('API_HOST')
 
-    logs = get_stats(os.environ.get('API_HOST'))
+    logs = get_api_stats(os.environ.get('API_HOST'))
     feed = generate_feed(logs, server=server, padding=padding)
 
     return Response(content=feed, media_type='application/xml')
 
+@app.get('/hwinfo/json')
+async def hwinfo_json():
+    return get_hw_stats()
 
 if __name__ == "__main__":
     import uvicorn
