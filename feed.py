@@ -62,8 +62,11 @@ def generate_feed(data, server, padding=5, hw=None):
         usage = ElementTree.SubElement(main, 'usage')
         for item in hw:
             element = ElementTree.SubElement(usage, item)
-            element.text = hw[item]
-            
+            if type(hw[item]) == float:
+                element.text = str(round(hw[item], 2))
+            else:
+                element.text = str(hw[item])
+
     output = ElementTree.tostring(main)
     prefix = '<?xml version="1.0" encoding="UTF-8"?>'
     return prefix+output.decode('utf-8')
