@@ -32,9 +32,10 @@ def generate_feed(data, server, padding=5, hw=None):
         n = padding - counter
         placeholders = ['containerId', 'name', 'status', 'tag', 'uptoDate']
         for _ in range(n):
-            element = ElementTree.SubElement(dockers, 'container')
+            docker_element = ElementTree.SubElement(dockers, 'container')
             for item in placeholders:
-                ElementTree.SubElement(element, item)
+                element = ElementTree.SubElement(docker_element, item)
+                element.text = ''
 
     vms = ElementTree.SubElement(main, 'vms')
     counter = 0 
@@ -57,7 +58,8 @@ def generate_feed(data, server, padding=5, hw=None):
         for _ in range(n):
             vm_element = ElementTree.SubElement(vms, 'vm')
             for item in placeholders:
-                ElementTree.SubElement(vm_element, item)
+                element = ElementTree.SubElement(vm_element, item)
+                element.text = ''
     if hw:
         usage = ElementTree.SubElement(main, 'usage')
         for item in hw:
